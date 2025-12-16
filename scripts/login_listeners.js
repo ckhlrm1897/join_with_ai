@@ -222,3 +222,10 @@ function setupHoverPrivacyCheckboxListener(){
     labelHover.style.background = null;
   })
 }
+
+function memberLogin() {
+  toggleMemberLogin.addEventListener('click', () => {
+    console.log("ich hab auf member geklickt");
+    
+  })
+}

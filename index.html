@@ -9,6 +9,7 @@
   <link rel="icon" href="./assets/icons/favicon_light.svg" type="image/x-icon" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="./assets/fonts/fonts.css" />
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./styles/welcome.css" />
   <link rel="stylesheet" href="./styles/standart.css" />
   <link rel="stylesheet" href="./styles/login.css" />
   <link rel="stylesheet" href="./styles/responsive/responsive_login.css" />
@@ -16,17 +17,41 @@
 </head>
 
 <body class="max_width_1440">
+  <div class="welcome_content fade_out">
+    <div class="welcome_container d_flex_center_column">
+      <span>Welcome</span>
+      <p>Pick the option that suits your role: create a request as a stakeholder or log in if you’re part of the team.
+      </p>
+      <div class="d_flex_center_row justify_between width_100">
+        <div class="margin_0 d_flex_center_column gap_24 align_start">
+          <div class="d_flex_center_row gap_8">
+            <img src="./assets/icons/work.svg" alt="work icon">
+            <p>Are you a Sakeholder</p>
+          </div>
+          <button class="wlcm_btn_standard bg_light_blue clr_wht margin_0 btn_pad">Create request</button>
+        </div>
+        <div class="margin_0 d_flex_center_column gap_24 align_start">
+          <div class="d_flex_center_row gap_8">
+            <img src="./assets/icons/group.svg" alt="group icon">
+            <p>Are you a team member?</p>
+          </div>
+          <button class="btn_white btn_member clr_drk_bl margin_0 no_width btn_pad">Member login</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
   <div class="login_content">
     <div class="login_logo">
       <img src="./assets/img/logo.svg" alt="join logo" />
     </div>
     <div id="signin-container" class="login_container d_flex justify_end width_100">
-      <div class="login_head d_flex fade_out">
+      <div class="login_head d_flex fade_out d_none">
         <span>Not a Join User?</span>
         <button class="btn_dark btn_sign_up">Sign up</button>
       </div>
     </div>
-    <div class="login_bottom fade_out">
+    <div class="login_bottom fade_out d_none">
       <a href="./templates/privacyPolicy.html">Privacy Policy</a>
       <a href="./templates/legalNotice.html">Legal Notice</a>
     </div>
@@ -36,7 +61,7 @@
       <img src="./assets/icons/dialog_signup.svg" alt="">
     </div>
   </div>
-  <div id="login-form" class="d_flex_center_column justify_evenly login_main fade_out">
+  <div id="login-form" class="d_flex_center_column justify_evenly login_main fade_out d_none">
     <div class="login_head_wrapper">
       <h1>Log in</h1>
       <div class="login_underline"></div>
@@ -110,4 +135,5 @@
 <script src="./script.js"></script>
 <script src="./scripts/login.js"></script>
 <script src="./scripts/login_listeners.js"></script>
+
 </html>

@@ -1,0 +1,70 @@
+:root {
+    --primary-bg-color: #2A3647;
+    --bold-font-size: 700;
+    --light-blue: #29ABE2;
+}
+
+.welcome_content {
+    position: absolute;
+    display: flex;
+    background-color: var(--primary-bg-color);
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    opacity: 0;
+    left: 0;
+}
+
+.welcome_container {
+    width: clamp(300px, 55vw, 789px);
+    z-index: 1;
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 1);
+    height: 403px;
+    border-radius: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 24px;
+    padding: 56px 72px 56px 72px;
+}
+
+.welcome_container span {
+    font-weight: var(--bold-font-size);
+    font-size: 32px;
+    border-bottom: solid var(--light-blue);
+    padding-bottom: 16px;
+}
+
+.welcome_container {
+    font-size: 23px;
+}
+
+.wlcm_btn_standard {
+    border-radius: 8px;
+    font-family: 'Inter';
+    font-weight: 700;
+    border: 1px solid var(--light-blue);
+    height: 50px;
+    font-size: 20px;
+}
+
+.wlcm_btn_standard:hover {
+    border: 2px solid var(--primary-bg-color);
+    background-color: var(--primary-bg-color);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.wlcm_btn_standard:active {
+    border: 1px solid var(--light-blue);
+    background: var(--light-blue);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.btn_member {
+    width: 125px;
+    height: 50px;
+    font-size: 20px;
+}
