@@ -67,6 +67,8 @@ async function loadFromDatabase(path) {
   try {
     let response = await fetch(FIREBASE_URL + path + ".json");
     let responseToJson = await response.json();
+    console.log(responseToJson);
+    
     return responseToJson
   } catch (error) {
     throw new Error("Failed to fetch firebase url", error)

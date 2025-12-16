@@ -144,6 +144,8 @@ async function createTaskOnSide() {
     taskDetails.category = document.getElementById("selected-category").innerHTML;
     taskDetails.subtasks = subTasks;
     taskDetails.status = "todo";
+    taskDetails.creator = (getUserName());
+    taskDetails.mail = (getUserMail())
 
     if (taskDetails.title && taskDetails.dueDate && taskDetails.category !== "Select task category") {
         await postToDatabase("tasks", taskDetails);
@@ -152,6 +154,16 @@ async function createTaskOnSide() {
     } else {
         validationHandling();
     }
+}
+
+function getUserName() {
+     let userData = JSON.parse(localStorage.getItem("isJoinUserLogin"));
+     return userData.userFullName;
+}
+
+function getUserMail() {
+     let userData = JSON.parse(localStorage.getItem("isJoinUserLogin"));     
+     return userData.userName;
 }
 
 /**
