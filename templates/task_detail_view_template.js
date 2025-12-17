@@ -206,5 +206,5 @@ function renderCreator(data, isCreator) {
 function isAiGenerated(data){
   if (data.taskData.aigenerated) {
     return `<img class="ai-gen" src="./assets/icons/ai-generated.svg" alt="ai-generated svg"></img>`
-  } else return "nein"
+  } else return "";
 }

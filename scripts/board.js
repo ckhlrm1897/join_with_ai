@@ -396,7 +396,7 @@ async function renderTaskDetailView(data) {
     }
     taskCategory.innerHTML = data.taskCategory;
     renderContactsDetailView(data);
-    renderSubTasksDetailView(data)
+    renderSubTasksDetailView(data);
     openTaskDetails();
     prepareDeleteTask();
     prepareEditTask()

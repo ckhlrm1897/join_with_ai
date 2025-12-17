@@ -1,4 +1,5 @@
 let assignedDetailInput = "";
+let profil_icon;
 
 /**
  * Opens the overlay for adding a new task, or redirects to mobile page.
@@ -133,6 +134,10 @@ function openTaskDetails() {
     task_detail_entry.classList.remove("d_none");
     void task_detail_entry.offsetWidth;
     task_detail_entry.classList.add("show");
+    profil_icon = document.querySelector(".profil_icon")
+    profil_icon.addEventListener('click', function () {
+        window.location.replace("contacts.html")
+    })
 }
 
 /**
@@ -259,3 +264,5 @@ function renderSubTasksDetailView(data) {
         })
     }
 }
+
+
