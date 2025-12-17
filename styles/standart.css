@@ -167,6 +167,10 @@ a {
     width: 100% !important;
 }
 
+.width_80{
+    width: 80% !important;
+}
+
 .no_width {
     width: unset !important;
 }

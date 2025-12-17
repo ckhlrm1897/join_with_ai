@@ -8,16 +8,18 @@
 function taskDetailViewTemplate(data, isCreator) {
   return `    <div class="taskd_detail_header d_flex_center_row justify_between margin_0 width_100">
       <div class="margin_0 category_detail" id="task-category">User Story</div>
+        <div>${isAiGenerated(data)}</div>
       <div class="close_detail_field  close_add_task margin_0" onclick="closeTaskOverlay()"></div>
     </div>
     <div class="task_edit_view_container justify_none d_flex_center_column">
     <div class="margin_0 justify_start align_none d_flex margin_0 width_100">
       <h1 class="task_detail_title ">${data.taskData.title}</h1>
+    
     </div>
     <div class="task_detail_description width_100">
       ${data.taskData.description}
     </div>
-    <div class=" d_flex_center_row width_100 detail_head">
+    <div class="creator_container d_flex_center_row width_100 detail_head">
       <p class="task_detail">Creator:</p>
       <div class="width_100 detail_due_date">${renderCreator(data.taskData, isCreator)}</div>
     </div>
@@ -180,9 +182,9 @@ function taskDetailEditTemplate(data) {
 function renderCreator(data, isCreator) {
   if (isCreator) {  
     return `
-  <div class="creator_container d_flex_row gap_8 justify_between">
-    <div class="d_flex_row gap_8">
-      <img src="./assets/icons/member.svg" alt="member-svg">
+  <div class="d_flex_row gap_8 justify_between">
+    <div class="d_flex_row gap_8 width_80 width_30vw">
+      <img class="int_ext" src="./assets/icons/member.svg" alt="member-svg">
       <p>${data.creator}</p>
     </div>
     <div class="profil_icon">
@@ -190,9 +192,9 @@ function renderCreator(data, isCreator) {
   </div>`
   } else {
     return `
-  <div class="creator_container d_flex_row gap_8 justify_between">
-    <div class="d_flex_row gap_8">
-      <img src="./assets/icons/extern.svg" alt="extern-svg">
+  <div class="d_flex_row gap_8 justify_between">
+    <div class="d_flex_row gap_8 width_80 width_30vw">
+      <img class="int_ext" src="./assets/icons/extern.svg" alt="extern-svg">
       <p>${data.creator}</p>
     </div>
    <a href="mailto:${data.Mail}"><div class="email_icon"> </div></a>
@@ -201,3 +203,8 @@ function renderCreator(data, isCreator) {
 
 }
 
+function isAiGenerated(data){
+  if (data.taskData.aigenerated) {
+    return `<img class="ai-gen" src="./assets/icons/ai-generated.svg" alt="ai-generated svg"></img>`
+  } else return "nein"
+}

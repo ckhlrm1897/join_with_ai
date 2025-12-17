@@ -47,6 +47,7 @@
 
 .detail_head {
     font-size: 20px;
+    position: relative;
 }
 
 #priority {

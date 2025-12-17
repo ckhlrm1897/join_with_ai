@@ -141,10 +141,10 @@
         margin: 0;
     }
 
-    .task_card:active{
-    rotate: unset;
-    cursor: unset;
-}
+    .task_card:active {
+        rotate: unset;
+        cursor: unset;
+    }
 
     .headline {
         position: unset;
@@ -277,7 +277,7 @@
         flex-direction: column;
     }
 
-    .headline_mobile_wrapper{
+    .headline_mobile_wrapper {
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -312,7 +312,7 @@
         padding: 5%;
     }
 
-    .category_detail, 
+    .category_detail,
     .task_detail_description,
     .detail_head,
     .assigned_contact,
@@ -320,9 +320,8 @@
     .input_task_detail,
     .input_textarea_detail,
     .date,
-    .priority_button
-      {
-        font-size: 1rem;
+    .priority_button {
+        font-size: 4vw;
     }
 
     .priority_button_container {
@@ -345,5 +344,23 @@
 
     .task_detail_view_footer {
         height: 100%;
+    }
+
+    .int_ext {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .creator_container {
+        padding-top: 22px;
+    }
+
+    .width_30vw{
+        width: 30vw !important;
+    }
+
+    .ai-gen {
+        width: 30vw;
     }
 }

@@ -133,20 +133,18 @@ function setPriority(level) {
 }
 
 /**
- * Creates a task using current form values from the side overlay, validates and persists to DB.
- * @returns {Promise<void>}
+ * Creates a new task on the board.
+ * 
+ * Collects task details from the UI, validates required fields and
+ * posts the task to the database if validation succeeds.
+ * Otherwise triggers validation handling.
+ *
+ * @async
+ * @function createTaskOnSide
+ * @returns {Promise<void>} Resolves when the task creation process is finished
  */
 async function createTaskOnSide() {
-    taskDetails.title = document.getElementById('title-input-overlay').value;
-    taskDetails.description = document.getElementById('description-input-overlay').value;
-    taskDetails.dueDate = document.getElementById('datepicker').value;
-    taskDetails.assignedTo = selectedContacts;
-    taskDetails.category = document.getElementById("selected-category").innerHTML;
-    taskDetails.subtasks = subTasks;
-    taskDetails.status = "todo";
-    taskDetails.creator = (getUserName());
-    taskDetails.mail = (getUserMail())
-
+    createTaskDetails();
     if (taskDetails.title && taskDetails.dueDate && taskDetails.category !== "Select task category") {
         await postToDatabase("tasks", taskDetails);
         showSuccessAddedTask();
@@ -156,21 +154,44 @@ async function createTaskOnSide() {
     }
 }
 
+/**
+ * Returns the full name of the currently logged-in user.
+ *
+ * The user data is read from localStorage under the key
+ * "isJoinUserLogin".
+ *
+ * @function getUserName
+ * @returns {string} Full name of the logged-in user
+ */
 function getUserName() {
      let userData = JSON.parse(localStorage.getItem("isJoinUserLogin"));
      return userData.userFullName;
 }
 
+/**
+ * Returns the email or username of the currently logged-in user.
+ *
+ * The user data is read from localStorage under the key
+ * "isJoinUserLogin".
+ *
+ * @function getUserMail
+ * @returns {string} Email address or username of the logged-in user
+ */
 function getUserMail() {
      let userData = JSON.parse(localStorage.getItem("isJoinUserLogin"));     
      return userData.userName;
 }
 
 /**
- * Creates a task using current form values, validates, persists to DB, and closes overlay.
- * @returns {Promise<void>}
+ * Creates and populates the global taskDetails object.
+ *
+ * Reads all required values from input fields and application state,
+ * such as selected contacts and subtasks.
+ *
+ * @function createTaskDetails
+ * @returns {void}
  */
-async function createTask() {
+function createTaskDetails() {
     taskDetails.title = document.getElementById('title-input-overlay').value;
     taskDetails.description = document.getElementById('description-input-overlay').value;
     taskDetails.dueDate = document.getElementById('datepicker').value;
@@ -178,7 +199,24 @@ async function createTask() {
     taskDetails.category = document.getElementById("selected-category").innerHTML;
     taskDetails.subtasks = subTasks;
     taskDetails.status = "todo";
+    taskDetails.creator = (getUserName());
+    taskDetails.mail = (getUserMail())
+    taskDetails.aigenerated = true;
+}
 
+/**
+ * Creates a new task on the board.
+ * 
+ * Collects task details from the UI, validates required fields and
+ * posts the task to the database if validation succeeds.
+ * Otherwise triggers validation handling.
+ *
+ * @async
+ * @function createTask
+ * @returns {Promise<void>} Resolves when the task creation process is finished
+ */
+async function createTask() {
+    createTaskDetails();
     if (taskDetails.title && taskDetails.dueDate && taskDetails.category !== "Select task category") {
         await postToDatabase("tasks", taskDetails);
         showSuccessAddedTask();
