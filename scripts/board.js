@@ -10,6 +10,7 @@ let cardPools = {
     dataInProgress: [],
     dataAwaitFeedback: [],
     dataDone: [],
+    dataTriage: [],
 }
 let data = [];
 
@@ -19,6 +20,8 @@ const inProgressRef = document.getElementById('column-in-progress');
 const inProgressEmptyRef = document.getElementById('no-tasks-in-progress');
 const awaitFeedbackRef = document.getElementById('column-await-feedback');
 const awaitFeedbackEmptyRef = document.getElementById('no-tasks-awaiting-feedback');
+const triageRef = document.getElementById('column-triage');
+const triageEmptyRef = document.getElementById('no-tasks-income');
 const doneRef = document.getElementById('column-done');
 const doneEmptyRef = document.getElementById('no-tasks-done');
 const dragRef = document.querySelectorAll('.card_column');
@@ -29,6 +32,7 @@ const columnRefs = {
     dataInProgress: inProgressRef,
     dataAwaitFeedback: awaitFeedbackRef,
     dataDone: doneRef,
+    dataTriage: triageRef,
 }
 
 const emptyRefs = {
@@ -36,6 +40,7 @@ const emptyRefs = {
     dataInProgress: inProgressEmptyRef,
     dataAwaitFeedback: awaitFeedbackEmptyRef,
     dataDone: doneEmptyRef,
+    dataTriage: triageEmptyRef,
 };
 
 /**
@@ -110,6 +115,9 @@ function pushCardsToCardsPool(taskStatus, htmlel) {
     } else if (taskStatus === "await feedback") {
         awaitFeedbackRef.append(htmlel)
         cardPools.dataAwaitFeedback.push(htmlel)
+    } else if (taskStatus === "triage") {
+        triageRef.append(htmlel)
+        cardPools.dataTriage.push(htmlel)
     } else {
         doneRef.append(htmlel)
         cardPools.dataDone.push(htmlel)
@@ -157,6 +165,7 @@ function clearCardPools(){
     cardPools.dataInProgress = [];
     cardPools.dataAwaitFeedback = [];
     cardPools.dataDone = [];
+    cardPools.dataTriage = [];
 }
 
 /**

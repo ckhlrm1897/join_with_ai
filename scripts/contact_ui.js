@@ -11,6 +11,7 @@ import {
   createContact,
   fillContactFormFields,
   updateContactInitialsPreview,
+  updateContact,
   getContactFormValues,
   showContactDetails,
   showToast
@@ -363,7 +364,7 @@ function setupEditContactForm(contact) {
       return;
     }
     const updated = getContactFormValues();
-    await window.updateContact(contact.id, updated);
+    await updateContact(contact.id, updated);
     closeOverlay();
     await renderContacts();
     const newDetail = { id: contact.id, ...updated };
