@@ -10,9 +10,12 @@ let cardPools = {
     dataInProgress: [],
     dataAwaitFeedback: [],
     dataDone: [],
+    dataIncome: [],
 }
 let data = [];
 
+const incomeRef = document.getElementById('column-triage');
+const incomeEmptyRef = document.getElementById('no-tasks-income');
 const todoRef = document.getElementById('column-todo');
 const todoEmptyRef = document.getElementById('no-tasks-to-do');
 const inProgressRef = document.getElementById('column-in-progress');
@@ -29,6 +32,7 @@ const columnRefs = {
     dataInProgress: inProgressRef,
     dataAwaitFeedback: awaitFeedbackRef,
     dataDone: doneRef,
+    dataIncome: incomeRef,
 }
 
 const emptyRefs = {
@@ -36,6 +40,7 @@ const emptyRefs = {
     dataInProgress: inProgressEmptyRef,
     dataAwaitFeedback: awaitFeedbackEmptyRef,
     dataDone: doneEmptyRef,
+    dataIncome: incomeEmptyRef,
 };
 
 /**
@@ -110,6 +115,9 @@ function pushCardsToCardsPool(taskStatus, htmlel) {
     } else if (taskStatus === "await feedback") {
         awaitFeedbackRef.append(htmlel)
         cardPools.dataAwaitFeedback.push(htmlel)
+    } else if (taskStatus === "triage") {
+        incomeRef.append(htmlel)
+        cardPools.dataIncome .push(htmlel)
     } else {
         doneRef.append(htmlel)
         cardPools.dataDone.push(htmlel)
@@ -153,6 +161,7 @@ function refreshBoard() {
  * Clears all task card pools.
  */
 function clearCardPools(){
+    cardPools.dataIncome = [];
     cardPools.dataToDo = [];
     cardPools.dataInProgress = [];
     cardPools.dataAwaitFeedback = [];

@@ -2,12 +2,12 @@
     margin: 0;
 }
 
-body{
+body {
     overflow-y: hidden;
     overflow-x: hidden;
 }
 
-main{
+main {
     overflow-x: auto;
     margin: 0;
     left: 232px;
@@ -18,11 +18,11 @@ main{
     height: calc(100vh - 96px);
 }
 
-h1{
+h1 {
     margin: 0;
 }
 
-.headline{
+.headline {
     width: 1056px;
     position: absolute;
     left: 0;
@@ -41,7 +41,7 @@ h1{
     right: 12px;
 }
 
-.input_icon_container:hover{
+.input_icon_container:hover {
     cursor: pointer;
     background-color: rgba(238, 238, 238, 1);
     border-radius: 50%;
@@ -51,14 +51,14 @@ h1{
     background-color: unset;
 }
 
-.search_icon{
+.search_icon {
     background-image: url(/assets/icons/search.svg);
     background-size: cover;
     height: 17.58px;
     width: 17.58px;
 }
 
-.input_icon_container:active .search_icon{
+.input_icon_container:active .search_icon {
     background-image: url(/assets/icons/search_active.svg);
     background-color: unset;
 }
@@ -79,23 +79,24 @@ button {
     height: 18.67px;
 }
 
-.find_add{
+.find_add {
     gap: 32px;
     margin: 0;
 }
 
-.find_task_input{
-    width: 312px !important; 
+.find_task_input {
+    width: 312px !important;
 }
 
 .board_wrapper {
     width: 100%;
 }
 
-content{
+content {
     position: absolute;
     width: 1208px;
-    height: 500px;
+    min-height: 500px;
+    max-height: 550px;
     margin-top: 50px;
     padding-right: 64px;
     padding-left: 64px;
@@ -104,38 +105,39 @@ content{
     top: 200.5px;
 }
 
-.board_column{
+.board_column {
     display: flex;
     flex-direction: column;
-    width: 252px;
+    
     max-height: 700px;
 }
 
-.board_column_head{
-    width: 244px;
+.board_column_head {
+    width: clamp(180px, 14vw, 220px);
     font-weight: 700;
     font-size: 20px;
-    color:rgba(66, 82, 110, 1);
+    color: rgba(66, 82, 110, 1);
 }
 
-.plus_button{
+.plus_button {
     background-image: url(/assets/icons/plus_button.svg);
     width: 24px;
     height: 24px;
 }
 
-.plus_button:hover{
+.plus_button:hover {
     background-image: url(/assets/icons/plus_button_hover.svg);
     cursor: pointer;
 }
 
-.plus_button:active{
+.plus_button:active {
     background-image: url(/assets/icons/plus_button_active.svg);
 }
 
-.no_task{
+.no_task {
     color: rgba(168, 168, 168, 1);
     font-family: "Open Sans";
+    font-size: 16px;
     height: 48px;
     width: 100%;
     background-color: rgba(231, 231, 231, 1);
@@ -143,12 +145,17 @@ content{
     border-style: dotted;
     border-width: 1px;
     margin: 0 !important;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.016);;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.016);
+    text-align: center;
 }
 
-.card_column{
-    min-height: 800px;
+.card_column {
+    min-height: 300px;
+    max-height: 800px;
     padding-top: 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 24px;
 }
 
 .hover_dragzone {
@@ -156,21 +163,21 @@ content{
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-.task_card{
+.task_card {
     position: relative;
     margin-bottom: 10px;
-    width: 252px;
+    width: clamp(180px, 14vw, 220px);
     background-color: rgba(255, 255, 255, 1);
     border-radius: 24px;
     padding: 16px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08)
 }
 
-.task_card:hover{
+.task_card:hover {
     cursor: pointer;
 }
 
-.task_card:active{
+.task_card:active {
     rotate: 5deg;
     cursor: grabbing;
 }
@@ -181,7 +188,7 @@ content{
     cursor: grabbing;
 }
 
-.task_content{
+.task_content {
     display: flex;
     flex-direction: column;
 }
@@ -193,7 +200,7 @@ content{
     align-items: center;
 }
 
-.card_label{
+.card_label {
     width: fit-content;
     color: rgba(255, 255, 255, 1);
     background-color: rgba(0, 56, 255, 1);
@@ -245,7 +252,7 @@ content{
     background: rgba(9, 25, 49, 1);
 }
 
-.task_description{
+.task_description {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -256,19 +263,19 @@ content{
     margin-bottom: 0px;
 }
 
-.task_title{
+.task_title {
     font-weight: 700;
     font-size: 16px;
     color: rgba(42, 54, 71, 1);
 }
 
-.task_content{
+.task_content {
     font-weight: 400;
     font-size: 16px;
     color: rgba(168, 168, 168, 1);
 }
 
-.subtask_progress{
+.subtask_progress {
     height: 8px;
     width: 100%;
     display: flex;
@@ -278,7 +285,7 @@ content{
     margin-top: 24px;
 }
 
-.progress_bar{
+.progress_bar {
     width: 128px;
     height: 8px;
     background-color: rgba(244, 244, 244, 1);
@@ -286,29 +293,29 @@ content{
     margin-right: 6px;
 }
 
-.progress_status{
+.progress_status {
     height: 8px;
     background-color: rgba(69, 137, 255, 1);
     border-radius: 16px;
 }
 
-.subtasks{
+.subtasks {
     display: flex;
-    justify-content:center;
+    justify-content: center;
     flex-direction: row;
     color: rgba(0, 0, 0, 1);
     font-size: 12px;
 }
 
-.task_card_footer{
+.task_card_footer {
     margin: 24px 0 0 15px;
 }
 
-.profile_badges{
+.profile_badges {
     width: 80px;
 }
 
-.profile_badge{
+.profile_badge {
     color: white;
     position: relative;
     margin-left: -15px;
@@ -323,12 +330,12 @@ content{
     border-radius: 45px;
 }
 
-.priority_symbol_container{
+.priority_symbol_container {
     width: 32px;
     padding: 10px 18px 10px 18px;
 }
 
-.task_overlay{
+.task_overlay {
     box-sizing: border-box;
     z-index: 3;
     position: fixed;
@@ -339,7 +346,7 @@ content{
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.add_task_entry{
+.add_task_entry {
     padding: 64px;
     position: absolute;
     top: 10%;
@@ -357,5 +364,3 @@ content{
     transform: translateX(0);
     /* transition: transform 2.3s ease; */
 }
-
-

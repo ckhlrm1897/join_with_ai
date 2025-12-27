@@ -287,3 +287,18 @@ async function isCreatorUser(data) {
 function deleteCurrentProfilOnLocalStorage(){
   localStorage.removeItem("current_profil")
 }
+
+function openMailTemplate() {
+    const email = 'info@join.christianklemm.com';
+    const subject = '"Titel des Themas"';
+    const body = 'Sehr geehrte Damen und Herren,\n\nIch habe eine Frage zu Ihrem Produkt X...';
+
+    // Wichtig: URL-Kodierung für Sonderzeichen wie Umlaute, Leerzeichen etc.
+    const encodedSubject = encodeURIComponent(subject);
+    const encodedBody = encodeURIComponent(body);
+
+    const mailtoLink = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
+
+    // Öffnet den Link (öffnet das Standard-Mailprogramm)
+    window.location.href = mailtoLink;
+}

@@ -7,7 +7,7 @@
 export const listEl = document.getElementById("contacts-list");
 export const detailBox = document.getElementById("contact-detail");
 
-const FIREBASE_URL = "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/";
+// const FIREBASE_URL = "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/";
 const DB_CONTACTS = "contacts";
 const DB_USERS = "users";
 let contacts = [];
@@ -47,7 +47,7 @@ export function stringToColor(str) {
  * Fetch all contacts from Firebase.
  * @returns {Promise<Array>} contacts
  */
-export async function fetchContacts() {
+async function fetchContacts() {
   const data = await loadFromDatabase(DB_CONTACTS);
   return Object.entries(data || {}).map(([id, entry]) => ({ id, ...entry }));
 }
@@ -56,7 +56,7 @@ export async function fetchContacts() {
  * Fetch all contacts from Firebase.
  * @returns {Promise<Array>} contacts
  */
-export async function fetchUsers() {
+async function fetchUsers() {
   const data = await loadFromDatabase(DB_USERS);
   return Object.entries(data || {}).map(([id, entry]) => ({ id, ...entry }));
 }
