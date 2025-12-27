@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./assets/icons/favicon_dark.svg" type="image/x-icon" />
+  <link rel="icon" href="./assets/icons/favicon_dark.svg" type="image/x-icon" media="(prefers-color-scheme: light)" />
+  <link rel="icon" href="./assets/icons/favicon_light.svg" type="image/x-icon" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="./assets/fonts/fonts.css" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./styles/welcome.css" />
+  <link rel="stylesheet" href="./styles/standart.css" />
+  <link rel="stylesheet" href="./styles/login.css" />
+  <link rel="stylesheet" href="./styles/responsive/responsive_login.css" />
+  <link rel="stylesheet" href="./styles/request.css" />
+  <title>Join Request</title>
+</head>
+
+<body class="max_width_1440">
+  <div class="request_logo">
+    <img src="./assets/img/logo.svg" alt="join logo" />
+  </div>
+  <div class="request_welcome_container d_flex_center_column">
+    <div class="request_header d_flex_ai_center width_100 justify_between">
+      <a href="index.html">
+        <button id="request-btn-back" class="request_btn_back margin_0"><img src="./assets/icons/arrow_left_line.svg"
+            alt="" srcset=""></button>
+      </a>
+      <p class="margin_0"><span>0</span> of <span>10</span> requests used today</p>
+    </div>
+
+    <h1>Welcome</h1>
+    <div class="d_flex_center_row">
+      <div class="request_left d_flex_center_column gap_40">
+        <p class="request_headline">Easily create a ticket by sending an email — no extra steps needed.
+        </p>
+        <p>On this platform, you can submit your feature requests via email. Our AI system will automatically generate a
+          ticket with a deadline and priority level.
+          <br>
+          <br>
+          A total of 10 requests can be created per day. After this limit, emails can still be sent, but they will be
+          manually reviewed by our team instead of generating AI tickets.
+        </p>
+      </div>
+      <div class="request_right">
+        <img src="./assets/img/request.png" alt="reqeust-png">
+      </div>
+    </div>
+    <div class="request_footline width_100 ">
+      <button onclick="SendLinkByMail()" class="request_btn_standard bg_light_blue clr_wht margin_0 btn_pad">
+        Create Email Request</button>
+    </div>
+  </div>
+
+  <div class="login_bottom fade_out">
+    <a href="./templates/privacyPolicy.html">Privacy Policy</a>
+    <a href="./templates/legalNotice.html">Legal Notice</a>
+  </div>
+  </div>
+  <div id="dialog_signin" class="dialog_signin d_flex_center d_none">
+    <div class="hide_dialog_signin" id="dialog_signin_inner">
+      <img src="./assets/icons/dialog_signup.svg" alt="">
+    </div>
+  </div>
+  </div>
+</body>
+<script src="./script.js"></script>
+<!-- <script src="./scripts/login.js"></script>
+<script src="./scripts/login_listeners.js"></script> -->
+
+</html>

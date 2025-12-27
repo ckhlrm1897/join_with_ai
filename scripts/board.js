@@ -163,7 +163,6 @@ function refreshBoard() {
  * Clears all task card pools.
  */
 function clearCardPools(){
-    cardPools.dataIncome = [];
     cardPools.dataToDo = [];
     cardPools.dataInProgress = [];
     cardPools.dataAwaitFeedback = [];
