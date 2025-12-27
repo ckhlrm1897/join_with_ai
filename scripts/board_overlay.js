@@ -140,12 +140,13 @@ function openTaskDetails() {
 }
 
 function loadContactDetailView() {
-    profil_icon.addEventListener('click', function () {
+    if (profil_icon){
+          profil_icon.addEventListener('click', function () {
         let taskCreator = data.taskData.creator
         localStorage.setItem("current_profil", JSON.stringify({taskCreator}));
         window.location.replace("contacts.html")
     })
-
+    }
 }
 
 /**

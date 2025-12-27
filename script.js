@@ -67,7 +67,7 @@ async function loadFromDatabase(path) {
   try {
     let response = await fetch(FIREBASE_URL + path + ".json");
     let responseToJson = await response.json();
-    
+
     return responseToJson
   } catch (error) {
     throw new Error("Failed to fetch firebase url", error)
@@ -86,8 +86,9 @@ async function postToDatabase(path, data) {
   const res = await fetch(`${FIREBASE_URL}${path}.json`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data),    
   });
+   console.log(data);
   if (!res.ok) throw new Error(`POST ${path} failed (${res.status})`);
   return await res.json();  // <-- hier kommt { name: "-Mx123ABC" }
 }
@@ -259,7 +260,7 @@ function getUserInitials() {
   if (!userDataFromLocalStorage || !userDataFromLocalStorage.userFullName) {
     return
   }
-  if(userNameRef){
+  if (userNameRef) {
     userNameRef.innerText = userDataFromLocalStorage.userFullName
   }
   let userName = userDataFromLocalStorage.userFullName.trim().split(' ');
@@ -271,7 +272,7 @@ function getUserInitials() {
 }
 
 async function getUsers() {
-   return await getUsersFromDatabase();
+  return await getUsersFromDatabase();
 }
 
 async function isCreatorUser(data) {
@@ -284,21 +285,20 @@ async function isCreatorUser(data) {
   return false;
 }
 
-function deleteCurrentProfilOnLocalStorage(){
+function deleteCurrentProfilOnLocalStorage() {
   localStorage.removeItem("current_profil")
 }
 
-function openMailTemplate() {
-    const email = 'info@join.christianklemm.com';
-    const subject = '"Titel des Themas"';
-    const body = 'Sehr geehrte Damen und Herren,\n\nIch habe eine Frage zu Ihrem Produkt X...';
-
-    // Wichtig: URL-Kodierung für Sonderzeichen wie Umlaute, Leerzeichen etc.
-    const encodedSubject = encodeURIComponent(subject);
-    const encodedBody = encodeURIComponent(body);
-
-    const mailtoLink = `mailto:${email}?subject=${encodedSubject}&body=${encodedBody}`;
-
-    // Öffnet den Link (öffnet das Standard-Mailprogramm)
-    window.location.href = mailtoLink;
-}
+function SendLinkByMail() {
+  var subject = "Task Name";
+  var body = "Tell me something about your issue:\r\n\r\n";
+  body += "Priority: 'low', 'normal', 'urgent'\n\r";
+  body += "Description:\n\r";
+  body += "Due date:\n\r";
+  body += "Category: 'Technical Task' , 'User Story'\n\r";
+  var uri = "mailto:info@join.christianklemm.com?subject=";
+  uri += encodeURIComponent(subject);
+  uri += "&body=";
+  uri += encodeURIComponent(body);
+  window.open(uri);
+} 

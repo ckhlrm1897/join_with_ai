@@ -201,7 +201,7 @@ function createTaskDetails() {
     taskDetails.status = "todo";
     taskDetails.creator = (getUserName());
     taskDetails.mail = (getUserMail())
-    taskDetails.aigenerated = true;
+    taskDetails.aigenerated = false;
 }
 
 /**

@@ -79,6 +79,7 @@ export async function updateContact(id, data) {
   await updateOnDatabase(`${DB_CONTACTS}/${id}`, data);
 }
 
+
 /**
  * Delete a contact by id.
  * @param {string} id
@@ -167,7 +168,7 @@ export async function renderContacts() {
  * @returns {object}
  */
 function groupContacts() {
-  sortedContacts = [...(contacts ?? []), ...(users ?? [])].sort((a, b) =>
+  sortedContacts = [...(contacts ?? [])].sort((a, b) =>
     a.name.localeCompare(b.name)
   );
   const groupedContacts = {};
