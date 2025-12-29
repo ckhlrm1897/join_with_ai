@@ -13,6 +13,7 @@ const userNameRef = document.getElementById('user-name');
 const FIREBASE_URL = "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/";
 let isUserLogin;
 let userDataFromLocalStorage = getUserLogState();
+let todaysAiRequestedTasks = [];
 
 /**
  * Event listener for the DOM to be loaded to start the inital functions
@@ -304,28 +305,31 @@ function SendLinkByMail() {
 
 async function checkEmailRequests() {
   let requests = await loadFromDatabase("tasks");
-
-  // Get all entries from Firebase
   const firebaseData = requests;
   if (!firebaseData || typeof firebaseData !== 'object') {
     return [];
   }
+  if (setTodaysAiRequestedTasks(firebaseData).length < 10){
+    window.location = "/request.html";
+  }
+}
+
+function setTodaysAiRequestedTasks(firebaseData) {
+  let now = new Date();
+  let startOfToday = new Date(now);
+  startOfToday.setHours(0, 0, 0, 0);
+  let endOfToday = new Date(now);
+  endOfToday.setHours(23, 59, 59, 999)
   const keys = Object.keys(firebaseData);
   if (keys.length > 0) {
-    const sorted = keys.sort((a, b) => {
-      const dateA = new Date(firebaseData[a].createdAt);
-      // console.log(dateA);
-
-      const dateB = new Date(firebaseData[b].createdAt);
-      // console.log(dateB);
-
-      return dateA - dateB;
-    });
-
-    const oldestKey = sorted[0];
-    return [{ json: { keyToDelete: oldestKey } }];
+    todaysAiRequestedTasks = keys.filter(key => {
+      let createdAt = firebaseData[key].createdAt;
+      if (!createdAt) return false;
+      let date = new Date(createdAt);
+      return date >= startOfToday && date <= endOfToday;
+    })
+    console.log(todaysAiRequestedTasks);
+    
+    return todaysAiRequestedTasks
   }
-
-  return [];
-
 }
