@@ -202,6 +202,7 @@ function createTaskDetails() {
     taskDetails.creator = (getUserName());
     taskDetails.mail = (getUserMail())
     taskDetails.aigenerated = false;
+    taskDetails.createdAt = new Date ();
 }
 
 /**

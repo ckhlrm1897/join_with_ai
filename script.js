@@ -86,9 +86,8 @@ async function postToDatabase(path, data) {
   const res = await fetch(`${FIREBASE_URL}${path}.json`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),    
+    body: JSON.stringify(data),
   });
-   console.log(data);
   if (!res.ok) throw new Error(`POST ${path} failed (${res.status})`);
   return await res.json();  // <-- hier kommt { name: "-Mx123ABC" }
 }
@@ -301,8 +300,32 @@ function SendLinkByMail() {
   uri += "&body=";
   uri += encodeURIComponent(body);
   window.open(uri);
-} 
+}
 
-function checkRequests() {
-  
+async function checkEmailRequests() {
+  let requests = await loadFromDatabase("tasks");
+
+  // Get all entries from Firebase
+  const firebaseData = requests;
+  if (!firebaseData || typeof firebaseData !== 'object') {
+    return [];
+  }
+  const keys = Object.keys(firebaseData);
+  if (keys.length > 0) {
+    const sorted = keys.sort((a, b) => {
+      const dateA = new Date(firebaseData[a].createdAt);
+      // console.log(dateA);
+
+      const dateB = new Date(firebaseData[b].createdAt);
+      // console.log(dateB);
+
+      return dateA - dateB;
+    });
+
+    const oldestKey = sorted[0];
+    return [{ json: { keyToDelete: oldestKey } }];
+  }
+
+  return [];
+
 }
