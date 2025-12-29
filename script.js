@@ -302,3 +302,7 @@ function SendLinkByMail() {
   uri += encodeURIComponent(body);
   window.open(uri);
 } 
+
+function checkRequests() {
+  
+}
