@@ -6,8 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function setRequestsUsedToday() {
+    todaysAiRequestedTasks = JSON.parse(
+        sessionStorage.getItem("todaysAiRequestedTasks") || "[]"
+    );
     console.log(todaysAiRequestedTasks);
-    
+
     let todaysRequest = document.getElementById("todays-requests");
-    todaysRequest.innerHTML = todaysAiRequestedTasks;
+    todaysRequest.innerHTML = todaysAiRequestedTasks.length;
 }

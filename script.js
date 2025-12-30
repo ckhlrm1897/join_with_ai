@@ -309,7 +309,11 @@ async function checkEmailRequests() {
   if (!firebaseData || typeof firebaseData !== 'object') {
     return [];
   }
-  if (setTodaysAiRequestedTasks(firebaseData).length < 10){
+  if (setTodaysAiRequestedTasks(firebaseData).length < 10) {
+    sessionStorage.setItem(
+      "todaysAiRequestedTasks",
+      JSON.stringify(todaysAiRequestedTasks)
+    );
     window.location = "/request.html";
   }
 }
@@ -328,8 +332,6 @@ function setTodaysAiRequestedTasks(firebaseData) {
       let date = new Date(createdAt);
       return date >= startOfToday && date <= endOfToday;
     })
-    console.log(todaysAiRequestedTasks);
-    
     return todaysAiRequestedTasks
   }
 }

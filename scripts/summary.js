@@ -9,6 +9,7 @@ const upcomingref = document.getElementById('date');
 const tasksInBoardRef = document.getElementById('tasks-in-board');
 const tasksInProgressRef = document.getElementById('tasks-in-progress');
 const awaitingFeedbackRef = document.getElementById('awaiting-feedback');
+const emailRequestsRef = document.getElementById('email-requests');
 let tasks;
 let urgentDueDates = [];
 let tasksAmount = 0;
@@ -17,6 +18,8 @@ let tasksToDo = 0;
 let tasksUrgent = 0;
 let tasksFeedback = 0;
 let tasksProgress = 0;
+let tasksTriage = 0;
+let emailRequests = 0;
 
 /**
  * Eventlistener for call functions after DOMContentLoaded
@@ -26,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await getTasks();
     getTasksDetails();
     renderUpcomingDeadline()
+    getEmailRequests();
 })
 
 /**
@@ -65,8 +69,22 @@ function getTasksDetails() {
         task.status === "todo" ? tasksToDo++ :
             task.status === "done" ? tasksDone++ :
                 task.status === "in progress" ? tasksProgress++ :
-                    tasksFeedback++;
+                    task.status === "await feedback" ? tasksFeedback++ :
+                        tasksTriage++;
     });
+    renderTasksNumbers();
+}
+
+async function getEmailRequests() {
+    let requests = await getTasksFromDatabase();
+    const keys = Object.keys(requests);
+    if (keys.length > 0) {
+        emailRequests = keys.filter(key => {
+            let aiGenerated = requests[key].aigenerated;
+            return aiGenerated
+        })
+    }
+    emailRequests = emailRequests.length;
     renderTasksNumbers();
 }
 
@@ -75,11 +93,12 @@ function getTasksDetails() {
  */
 function renderTasksNumbers() {
     document.getElementById("urgents").innerHTML = tasksUrgent;
-    document.getElementById("tasks-in-board").innerHTML = tasksAmount;
+    tasksInBoardRef.innerHTML = tasksAmount;
     document.getElementById("to-dos").innerHTML = tasksToDo;
     document.getElementById("dones").innerHTML = tasksDone;
-    document.getElementById("tasks-in-progress").innerHTML = tasksProgress;
-    document.getElementById("awaiting-feedback").innerHTML = tasksFeedback;
+    tasksInProgressRef.innerHTML = tasksProgress;
+    awaitingFeedbackRef.innerHTML = tasksFeedback;
+    emailRequestsRef.innerHTML = emailRequests;
 }
 
 /**
