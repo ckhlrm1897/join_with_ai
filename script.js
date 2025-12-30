@@ -203,10 +203,26 @@ function getUserInitials() {
   }
 }
 
+/**
+ * Loads all users from the database.
+ *
+ * @async
+ * @function getUsers
+ * @returns {Promise<Object>} A promise that resolves to an object containing all users.
+ */
 async function getUsers() {
   return await getUsersFromDatabase();
 }
 
+/**
+ * Checks whether the creator specified in the given data exists as a user.
+ *
+ * @async
+ * @function isCreatorUser
+ * @param {Object} data - The data object containing creator information.
+ * @param {string} data.creator - The name of the creator to check.
+ * @returns {Promise<boolean>} Returns true if the creator exists as a user, otherwise false.
+ */
 async function isCreatorUser(data) {
   let creator = data.creator;
   const users = await getUsers();
@@ -217,10 +233,22 @@ async function isCreatorUser(data) {
   return false;
 }
 
+/**
+ * Removes the currently selected profile from localStorage.
+ *
+ * @function deleteCurrentProfilOnLocalStorage
+ * @returns {void}
+ */
 function deleteCurrentProfilOnLocalStorage() {
   localStorage.removeItem("current_profil")
 }
 
+/**
+ * Opens the default mail client with a prefilled task request email.
+ *
+ * @function SendLinkByMail
+ * @returns {void}
+ */
 function SendLinkByMail() {
   var subject = "Task Name";
   var body = "Tell me something about your issue:\r\n\r\n";
@@ -235,6 +263,14 @@ function SendLinkByMail() {
   window.open(uri);
 }
 
+/**
+ * Checks how many AI requests were created today and redirects
+ * the user if the daily limit has not been exceeded.
+ *
+ * @async
+ * @function checkEmailRequests
+ * @returns {Promise<void>}
+ */
 async function checkEmailRequests() {
   let requests = await loadFromDatabase("tasks");
   const firebaseData = requests;
@@ -250,6 +286,14 @@ async function checkEmailRequests() {
   }
 }
 
+/**
+ * Filters Firebase task data and returns all task keys
+ * that were created today.
+ *
+ * @function setTodaysAiRequestedTasks
+ * @param {Object} firebaseData - Firebase task data keyed by task IDs.
+ * @returns {string[]} An array of task keys created today.
+ */
 function setTodaysAiRequestedTasks(firebaseData) {
   let now = new Date();
   let startOfToday = new Date(now);

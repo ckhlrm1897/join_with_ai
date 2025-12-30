@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setRequestsUsedToday()
 })
 
+/**
+ * Loads the AI requests that have been made today from sessionStorage
+ * and updates the corresponding UI element with the count.
+ *
+ * @function setRequestsUsedToday
+ * @returns {void}
+ */
 function setRequestsUsedToday() {
     todaysAiRequestedTasks = JSON.parse(
         sessionStorage.getItem("todaysAiRequestedTasks") || "[]"

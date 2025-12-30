@@ -179,6 +179,17 @@ function taskDetailEditTemplate(data) {
      `
 }
 
+/**
+ * Renders the creator information depending on whether the creator
+ * is an internal user or an external contact.
+ *
+ * @function renderCreator
+ * @param {Object} data - The task or request data object.
+ * @param {string} data.creator - Name of the creator.
+ * @param {string} [data.Mail] - Email address of the creator (used for external creators).
+ * @param {boolean} isCreator - Indicates whether the creator is an internal user.
+ * @returns {string} HTML string representing the creator section.
+ */
 function renderCreator(data, isCreator) {
   if (isCreator) {  
     return `
@@ -203,6 +214,15 @@ function renderCreator(data, isCreator) {
 
 }
 
+/**
+ * Renders an AI-generated indicator icon if the task was created by AI.
+ *
+ * @function isAiGenerated
+ * @param {Object} data - The task data object.
+ * @param {Object} data.taskData - Task metadata.
+ * @param {boolean} data.taskData.aigenerated - Flag indicating AI-generated content.
+ * @returns {string} HTML string containing the AI-generated icon or an empty string.
+ */
 function isAiGenerated(data){
   if (data.taskData.aigenerated) {
     return `<img class="ai-gen" src="./assets/icons/ai-generated.svg" alt="ai-generated svg"></img>`

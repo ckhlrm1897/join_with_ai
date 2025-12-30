@@ -293,6 +293,13 @@ export function getContactFormValues() {
   };
 }
 
+/**
+ * Checks whether a current profile is stored in localStorage and
+ * sets the global task profile accordingly.
+ *
+ * @function checkLocalStorage
+ * @returns {boolean} Returns true if a current profile exists in localStorage, otherwise false.
+ */
 function checkLocalStorage() {
   let current_profil = JSON.parse(localStorage.getItem("current_profil"))
   if (current_profil) {
@@ -302,16 +309,28 @@ function checkLocalStorage() {
   
 }
 
+/**
+ * Highlights the task profile user in the contact list if a profile
+ * is stored in localStorage and updates related UI components.
+ *
+ * This function:
+ * - Loads the profile from localStorage
+ * - Finds the corresponding user in the sorted contacts list
+ * - Fills the contact detail panel
+ * - Initializes edit/delete buttons (desktop & mobile)
+ * - Highlights the selected contact in the UI
+ *
+ * @function highlightTaskProfilUser
+ * @returns {void}
+ */
 function highlightTaskProfilUser() {
   if (checkLocalStorage()) {
     let thisUser = sortedContacts.find(user => user.name === taskProfil)
     fillContactDetailPanel(thisUser);
-    // The following helpers are exported from UI file and should be wired there:
     if (window.checkAndRenderMobileView) window.checkAndRenderMobileView();
     if (window.setupEditDeleteButtons) window.setupEditDeleteButtons(thisUser);
     if (window.setupEditDeleteButtonsMobile) window.setupEditDeleteButtonsMobile(thisUser);
     let userId = document.getElementById(`${thisUser.id}`)
     highlightContactItem(userId);
   }
-
 }

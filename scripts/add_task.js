@@ -327,8 +327,6 @@ function createContactRow(contact) {
     return row;
 }
 
-
-
 /**
  * Renders up to 4 selected contact badges, and a 'More..' badge if >4.
  */
