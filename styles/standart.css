@@ -211,6 +211,10 @@ a {
     gap: 24px;
 }
 
+.gap_48{
+    gap: 48px;
+}
+
 .headline{
     gap: 30px;
 }

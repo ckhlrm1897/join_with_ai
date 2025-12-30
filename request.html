@@ -21,7 +21,7 @@
   <div class="request_logo">
     <img src="./assets/img/logo.svg" alt="join logo" />
   </div>
-  <div class="request_welcome_container d_flex_center_column">
+  <div class="request_welcome_container d_flex_center_column d_none">
     <div class="request_header d_flex_ai_center width_100 justify_between">
       <a href="index.html">
         <button id="request-btn-back" class="request_btn_back margin_0"><img src="./assets/icons/arrow_left_line.svg"
@@ -31,7 +31,7 @@
     </div>
 
     <h1>Welcome</h1>
-    <div class="d_flex_center_row">
+    <div class="d_flex_center_row gap_48">
       <div class="request_left d_flex_center_column gap_40">
         <p class="request_headline">Easily create a ticket by sending an email — no extra steps needed.
         </p>
@@ -48,8 +48,42 @@
       </div>
     </div>
     <div class="request_footline width_100 ">
-      <button onclick="SendLinkByMail()" class="request_btn_standard bg_light_blue clr_wht margin_0 btn_pad">
-        Create Email Request</button>
+      <button onclick="SendLinkByMail()" class="request_btn_standard bg_light_blue clr_wht margin_0 btn_pad gap_4">
+        Create Email Request
+        <img src="./assets/icons/check.svg" alt="check-icon">
+      </button>
+    </div>
+  </div>
+
+
+  <div class="request_limit_container d_flex_center_column">
+    <div class="request_header d_flex_ai_center width_100 justify_between">
+      <a href="index.html">
+        <button id="request-btn-back" class="request_btn_back margin_0"><img src="./assets/icons/arrow_left_line.svg"
+            alt="" srcset=""></button>
+      </a>
+      <p class="limit_text margin_0"><span id="todays-requests">10</span> of <span>10</span> requests used today</p>
+    </div>
+
+    <h1>Welcome</h1>
+    <div class="d_flex_center_row gap_48">
+      <div class="request_left d_flex_center_column gap_40">
+        <div class="red_container d_flex_center">
+          The daily 10-request limit has been reached!
+        </div>
+        <p>Need more? No worries — you can still send emails, but our team will review them manually instead of using AI
+          to create tickets.
+        </p>
+        <div class="request_footline width_100 ">
+          <button onclick="SendLinkByMail()" class="request_btn_standard bg_light_blue clr_wht margin_0 btn_pad">
+            Send an email
+            <img src="./assets/icons/check.svg" alt="check-icon">
+          </button>
+        </div>
+      </div>
+      <div class="request_right">
+        <img src="./assets/img/request_reached.png" alt="request_reached-png">
+      </div>
     </div>
   </div>
 
@@ -65,7 +99,9 @@
   </div>
   </div>
 </body>
+<script src="./scripts/api.js"></script>
 <script src="./script.js"></script>
 <script src="./scripts/request.js"></script>
+
 
 </html>

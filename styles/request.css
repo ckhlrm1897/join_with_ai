@@ -25,6 +25,25 @@ h1 {
     padding: 56px 72px 56px 72px;
 }
 
+.request_limit_container {
+    font-family: "Open Sans";
+    color: var(--request-font-main-color);
+    width: clamp(300px, 80vw, 1400px);
+    z-index: 1;
+    opacity: 1;
+    height: 603px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    gap: 24px;
+    padding: 56px 72px 56px 72px;
+}
+
+.limit_text {
+    color: #FF3D00 !important;
+}
+
 .request_header {
     position: absolute;
     top: 0;
@@ -36,6 +55,14 @@ h1 {
 
 .request_header span {
     font-weight: var(--bold-font-size);
+}
+
+.red_container {
+    width: 100%;
+    background-color: rgba(255, 210, 210, 0.52);
+    border-radius: 8px;
+    padding: 16px 24px;
+    font-weight: 500;
 }
 
 .request_logo {
@@ -80,16 +107,20 @@ h1 {
     width: 420px;
 }
 
-
-
-
 .request_btn_standard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
-    font-family: 'Inter';
-    font-weight: 700;
+    font-family: 'Open Sans';
+    font-weight: 400;
     border: 1px solid var(--light-blue);
     height: 50px;
-    font-size: 20px;
+    font-size: 23px;
+}
+
+.request_btn_standard img {
+    width: 24px;
 }
 
 .request_btn_standard:hover {
