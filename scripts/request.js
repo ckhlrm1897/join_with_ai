@@ -16,8 +16,12 @@ function setRequestsUsedToday() {
     todaysAiRequestedTasks = JSON.parse(
         sessionStorage.getItem("todaysAiRequestedTasks") || "[]"
     );
-    console.log(todaysAiRequestedTasks);
+    if (todaysAiRequestedTasks.length < 10) {
+        let todaysRequest = document.getElementById("todays-requests");
+        todaysRequest.innerHTML = todaysAiRequestedTasks.length;
+    } else {
+        document.querySelector(".request_welcome_container").classList.add("d_none");
+        document.querySelector(".request_limit_container").classList.remove("d_none");
+    }
 
-    let todaysRequest = document.getElementById("todays-requests");
-    todaysRequest.innerHTML = todaysAiRequestedTasks.length;
 }

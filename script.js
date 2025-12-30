@@ -277,7 +277,7 @@ async function checkEmailRequests() {
   if (!firebaseData || typeof firebaseData !== 'object') {
     return [];
   }
-  if (setTodaysAiRequestedTasks(firebaseData).length < 10) {
+  if (setTodaysAiRequestedTasks(firebaseData)) {
     sessionStorage.setItem(
       "todaysAiRequestedTasks",
       JSON.stringify(todaysAiRequestedTasks)

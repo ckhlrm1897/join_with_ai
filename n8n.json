@@ -1,0 +1,375 @@
+{
+  "name": "Join",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2.1,
+      "position": [
+        -576,
+        -416
+      ],
+      "id": "3e49a23b-5327-48c7-b478-058c12cf7cd0",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "u0l2XdXktAKYIFzy",
+          "name": "info@join.christianklemm.com"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = items[0].json.output[0].content[0].text;\n\nreturn [\n  {\n    json: JSON.parse(raw)\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        -320
+      ],
+      "id": "2207b327-cb6a-433f-9560-d8af332bfb5d",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "GPT-5"
+        },
+        "responses": {
+          "values": [
+            {
+              "role": "system",
+              "content": "You are an API-style assistant used in an n8n automation.\n\nYour task is to convert unstructured email content into a structured JSON object for task creation.\n\nRules:\n- Always return ONLY valid JSON\n- Do NOT include explanations, comments, markdown or surrounding text\n- Do NOT change the JSON structure\n- Normalize umlauts and broken character encodings (e.g. mÃ¼ → ü)\n- Convert dates to ISO format (YYYY-MM-DD)\n- Use deterministic values only, no randomness\n\nField rules:\n- Use the email subject as title if available\n- If subject is missing or empty, generate a short meaningful title from the description\n- If category is missing, use \"Technical Task\"\n- If priority is missing, use \"medium\"\n- If dueDate is missing, leave it empty\n- If creator cannot be clearly determined, use \"Email User\"\n\nTarget JSON structure:\n\n{\n  \"aigenerated\": true,\n  \"assignedTo\": [],\n  \"category\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"dueDate\": \"\",\n  \"mail\": \"\",\n  \"priority\": \"\",\n  \"status\": \"triage\",\n  \"subtasks\": [],\n  \"title\": \"\",\n \"createdAt\": \"\"\n}"
+            },
+            {
+              "content": "=Convert the following email content into the target JSON structure.\n\nEmail content:\n{{ $json.textPlain }}\n\nMetadata:\n- From: {{ $json.from }}\n- Subject: {{ $json.subject }}\n\nMapping rules:\n- Use \"Priority\" from the email body for priority only \"'low', 'normal', 'urgent'\" allowed!\n- Use \"Description\" from the email body as description\n- Use \"Due date\" from the email body as dueDate\n- Use \"Category\" from the email body as category only \"'Technical Task' , 'User Story'\" allowed\n- Use the email subject as title\n- Extract the sender email address from \"From\" and use it as mail\n- Use the sender name or email as creator\n- Convert dates from DD.MM.YYYY to YYYY-MM-DD"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        320,
+        -320
+      ],
+      "id": "d08eda33-ab50-42bc-b590-c634c157d700",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "Ir8kmU1Dl7EKFpsZ",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "=aigenerated",
+              "value": "={{ $json.aigenerated }}"
+            },
+            {
+              "name": "=assignedTo",
+              "value": "={{ $json.assignedTo }}"
+            },
+            {
+              "name": "category",
+              "value": "={{ $json.category }}"
+            },
+            {
+              "name": "creator",
+              "value": "={{ $json.creator }}"
+            },
+            {
+              "name": "description",
+              "value": "={{ $json.description }}"
+            },
+            {
+              "name": "dueDate",
+              "value": "={{ $json.dueDate }}"
+            },
+            {
+              "name": "mail",
+              "value": "={{ $json.mail }}"
+            },
+            {
+              "name": "priority",
+              "value": "={{ $json.priority }}"
+            },
+            {
+              "name": "subtasks",
+              "value": "={{ $json.subtasks }}"
+            },
+            {
+              "name": "title",
+              "value": "={{ $json.title }}"
+            },
+            {
+              "name": "status",
+              "value": "={{ $json.status }}"
+            },
+            {
+              "name": "createdAt",
+              "value": "={{ $json.createdAt }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1120,
+        -320
+      ],
+      "id": "df131748-eeac-4506-92c4-48a9f6deb5ab",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "const date = new Date();\ndate.setHours(date.getHours());\n\nreturn [\n  {\n    json: {\n      ...$json,\n      createdAt: date.toISOString()\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        -320
+      ],
+      "id": "615f3b38-41ce-4d5e-b9d8-2f92d227bc82",
+      "name": "Code in JavaScript5"
+    },
+    {
+      "parameters": {
+        "url": "https://join-19b54-default-rtdb.europe-west1.firebasedatabase.app/tasks.json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -352,
+        -416
+      ],
+      "id": "cfd6eae2-b209-4b34-8431-7226df75d692",
+      "name": "Task Request"
+    },
+    {
+      "parameters": {
+        "jsCode": "let now = new Date();\nconst firebaseData = $json;\n\nif (!firebaseData || typeof firebaseData !== 'object') {\n  return [];\n}\n\nlet startOfToday = new Date(now);\nstartOfToday.setHours(0, 0, 0, 0);\nlet endOfToday = new Date(now);\nendOfToday.setHours(23, 59, 59, 999)\nconst keys = Object.keys(firebaseData);\nif (keys.length > 0) {\n    let todaysAiRequestedTasks = keys.filter(key => {\n      let createdAt = firebaseData[key].createdAt;\n      let aigenerated = firebaseData[key].aigenerated;\n      if (!createdAt) return false;\n      if (!aigenerated) return false;\n      let date = new Date(createdAt);\n      return date >= startOfToday && date <= endOfToday;\n    })\n    return [{ json: { aiGeneratedKeys: todaysAiRequestedTasks } }];\n  }\n\nreturn [];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -128,
+        -416
+      ],
+      "id": "b9bdd46d-efd7-4f76-9389-ffbbe33b17b0",
+      "name": "How many ai generated today"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "af35ae14-8885-413a-9baa-785b83b1f9f6",
+              "leftValue": "={{ $json.aiGeneratedKeys }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "array",
+                "operation": "lengthGte",
+                "rightType": "number"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        96,
+        -416
+      ],
+      "id": "ea0734f3-a1c4-4b6b-80a9-c41eb22dd211",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "fromEmail": "info@join.christianklemm.com",
+        "toEmail": "={{ $('Email Trigger (IMAP)').item.json.metadata['return-path'] }}",
+        "subject": "=Thank you for your request ({{ $('Email Trigger (IMAP)').item.json.subject }})",
+        "emailFormat": "text",
+        "text": "Thank you for your request,\n\nOur team will manually create a task or contact you as soon as possible.\n\nBest regards.\n\nChristian Klemm",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        384,
+        -512
+      ],
+      "id": "d8c957c4-2be1-4cbf-85cf-1dace959ab32",
+      "name": "Send email",
+      "webhookId": "1e554160-7cf3-4f60-8118-47fe8a5c97c9",
+      "credentials": {
+        "smtp": {
+          "id": "qzlKHFWt5qHYOTnC",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "info@join.christianklemm.com",
+        "toEmail": "={{ $('Email Trigger (IMAP)').item.json.metadata['return-path'] }}",
+        "subject": "=Thank you for your request ({{ $('Email Trigger (IMAP)').item.json.subject }})",
+        "emailFormat": "text",
+        "text": "Thank you for your request,\n\nyour task is now available on the Join Board.\n\nBest regards.\n\nChristian Klemm",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        1344,
+        -320
+      ],
+      "id": "6eeb2013-bbee-43bd-93b4-8b96623ba9f6",
+      "name": "Mail AI",
+      "webhookId": "1e554160-7cf3-4f60-8118-47fe8a5c97c9",
+      "credentials": {
+        "smtp": {
+          "id": "qzlKHFWt5qHYOTnC",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Task Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript5": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Task Request": {
+      "main": [
+        [
+          {
+            "node": "How many ai generated today",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "How many ai generated today": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Mail AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0785d0c3-f1b5-4a31-b972-dec7e24484e9",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4caf60e1e62a21203677f5ee3ba0274c27c2b2ab0e0660322f916cce51e9047f"
+  },
+  "id": "2BKUfVbPXp2CApXt",
+  "tags": []
+}

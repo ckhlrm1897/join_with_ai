@@ -22,7 +22,6 @@
     z-index: 1;
     opacity: 1;
     background-color: rgba(255, 255, 255, 1);
-    height: 403px;
     border-radius: 30px;
     position: absolute;
     top: 50%;
@@ -34,7 +33,7 @@
 
 .welcome_container span {
     font-weight: var(--bold-font-size);
-    font-size: 32px;
+    font-size: 40px;
     border-bottom: solid var(--light-blue);
     padding-bottom: 16px;
 }
