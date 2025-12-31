@@ -95,7 +95,33 @@
     }
 
     .stake_member_button{
-        font-size: 18px;
+        font-size: 18px !important;
+        align-items: center;
+    }
+
+     .stake_member_button button{
+        font-size: 1.5vw;
+        align-items: center;
+    }
+
+    .welcome_container p {
+        text-align: center;
+        font-size: 2vw;
+    }
+
+    .welcome_container {
+         padding: min(3em, 6%);
+    }
+}
+
+@media (max-width: 1000px) {
+    .stakeholder_member {
+        flex-direction: column;
+        gap: 70px;
+    }
+
+    .stake_member_button{
+        font-size: 18px !important;
         align-items: center;
     }
 

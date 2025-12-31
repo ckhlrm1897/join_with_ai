@@ -1,3 +1,27 @@
-@media (max-width: 1400px) {
-    
+@media (max-width: 1000px) {
+    .request_right {
+        display: none;
+    }
+
+    .mobile {
+        display: flex !important;
+    }
+
+    .request_welcome_container {
+        padding: unset;
+        height: unset;
+        top: 50%;
+    }
+
+    .request_logo {
+        left: 10px;
+    }
+
+    .request_header {
+        position: relative;
+    }
+
+    h1 {
+        margin-left: 0;
+    }
 }

@@ -6,6 +6,7 @@
 }
 
 h1 {
+    font-size: clamp(40px, 4.5vw, 64px);
     font-family: "Open Sans";
     color: var(--request-font-main-color);
 }
@@ -100,11 +101,11 @@ h1 {
 }
 
 .request_headline {
-    font-size: 28px;
+    font-size: clamp(22px, 3vw, 28px);
 }
 
 .request_right, img {
-    width: 420px;
+    width: clamp(292px, 26vw, 420px);
 }
 
 .request_btn_standard {
@@ -140,4 +141,8 @@ h1 {
     width: 125px;
     height: 50px;
     font-size: 20px;
+}
+
+.mobile {
+    display: none;
 }
