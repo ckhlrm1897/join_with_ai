@@ -282,7 +282,7 @@ async function checkEmailRequests() {
       "todaysAiRequestedTasks",
       JSON.stringify(todaysAiRequestedTasks)
     );
-    window.location = "/request.html";
+    window.location = "./request.html";
   }
 }
 

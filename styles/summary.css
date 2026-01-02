@@ -111,28 +111,28 @@ main {
 
 .pencil {
     background-size: 69px 69px;
-    background-image: url(/assets/icons/pencil_rectangle.svg);
+    background-image: url(../assets/icons/check_rectangle.svg);
 }
 
 .summary_box:hover .check {
-    background-image: url(/assets/icons/check_rectangle_hover.svg);
+    background-image: url(../assets/icons/check_rectangle_hover.svg);
 }
 
 .summary_box:active .check {
-    background-image: url(/assets/icons/check_rectangle.svg);
+    background-image: url(../assets/icons/check_rectangle.svg);
 }
 
 .summary_box:hover .pencil {
-    background-image: url(/assets/icons/pencil_rectangle_hover.svg);
+    background-image: url(../assets/icons/pencil_rectangle_hover.svg);
 }
 
 .summary_box:active .pencil {
-    background-image: url(/assets/icons/pencil_rectangle.svg);
+    background-image: url(../assets/icons/pencil_rectangle.svg);
 }
 
 .check {
     background-size: 69px 69px;
-    background-image: url(/assets/icons/check_rectangle.svg);
+    background-image: url(../assets/icons/check_rectangle.svg);
 }
 
 p {

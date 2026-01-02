@@ -40,7 +40,7 @@
   right: 5px;
   width: 16px;
   height: 16px;
-  background: url('/assets/icons/resize_icon.svg') no-repeat center center;
+  background: url('../assets/icons/resize_icon.svg') no-repeat center center;
   background-size: contain;
   pointer-events: none;
 }
@@ -90,7 +90,7 @@ input[type="date"]:invalid::-webkit-datetime-edit {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
-  background: url(/assets/icons/calender.svg) no-repeat;
+  background: url(../assets/icons/calender.svg) no-repeat;
 }
 
 .input_icon_wrapper {
@@ -208,7 +208,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .add_icon {
-  background-image: url(/assets/icons/add_subtasks_icon.svg);
+  background-image: url(../assets/icons/add_subtasks_icon.svg);
   background-size: cover;
   height: 14px;
   width: 14px;
