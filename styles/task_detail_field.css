@@ -168,7 +168,7 @@ input{
 .task_edit_view_container{
     width: 100%;
     max-height: 600px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     gap: 24px;
 }
@@ -213,4 +213,10 @@ input{
 
 .email_icon:active{
     background-image: url(../assets/icons/email_click.svg);
+}
+
+.creator_name {
+    font-size: 19px;
+    max-width: 200px;
+    overflow: hidden;
 }

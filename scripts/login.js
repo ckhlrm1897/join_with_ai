@@ -27,6 +27,7 @@ const toggleLogIn = document.querySelector('#signin-btn-back');
 const toggleMemberLogin = document.querySelector('.btn_member');
 const togglePrivacyCheck = document.getElementById('sign-up-label');
 const welcomeContent = document.querySelector(".welcome_content");
+const loginBottom = document.querySelector(".login_bottom");
 let isPasswordVisible = false;
 
 // Initialization after document is loaded

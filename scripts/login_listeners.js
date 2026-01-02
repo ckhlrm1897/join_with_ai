@@ -233,7 +233,6 @@ function setupHoverPrivacyCheckboxListener() {
 }
 
 toggleMemberLogin.addEventListener('click', () => {
-  // let welcomeContent = document.querySelector('.welcome_content');
   welcomeContent.classList.remove('welcome_in');
   welcomeContent.classList.add('welcome_out');
   let loginLogo = document.querySelector('.login_logo');

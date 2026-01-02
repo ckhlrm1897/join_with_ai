@@ -6,7 +6,7 @@
 }
 
 h1 {
-    font-size: clamp(40px, 4.5vw, 64px);
+    font-size: clamp(30px, 4.5vw, 64px);
     font-family: "Open Sans";
     color: var(--request-font-main-color);
 }
@@ -105,7 +105,7 @@ h1 {
 }
 
 .request_right, img {
-    width: clamp(292px, 26vw, 420px);
+    width: clamp(200px, 33vw, 420px);
 }
 
 .request_btn_standard {
@@ -117,7 +117,7 @@ h1 {
     font-weight: 400;
     border: 1px solid var(--light-blue);
     height: 50px;
-    font-size: 23px;
+    font-size: clamp(18px, 3vw, 23px);;
 }
 
 .request_btn_standard img {
@@ -145,4 +145,8 @@ h1 {
 
 .mobile {
     display: none;
+}
+
+.login_bottom {
+    opacity: 1;
 }

@@ -24,9 +24,13 @@
   </div>
   <div class="request_welcome_container d_flex_center_column">
     <h1>Welcome</h1>
+    <a href="index.html">
+      <button id="request-btn-back" class="request_btn_back mobile margin_0 "><img
+          src="./assets/icons/arrow_left_hover.svg" alt="" srcset=""></button>
+    </a>
     <div class="request_header d_flex_ai_center width_100 justify_between">
       <a href="index.html">
-        <button id="request-btn-back" class="request_btn_back margin_0"><img src="./assets/icons/arrow_left_line.svg"
+        <button id="request-btn-back" class="request_btn_back margin_0 "><img src="./assets/icons/arrow_left_line.svg"
             alt="" srcset=""></button>
       </a>
       <p class="margin_0"><span id="todays-requests">0</span> of <span>10</span> requests used today</p>
@@ -60,6 +64,13 @@
 
 
   <div class="request_limit_container d_flex_center_column d_none">
+
+
+    <h1>Welcome</h1>
+    <a href="index.html">
+      <button id="request-btn-back" class="request_btn_back mobile margin_0 "><img
+          src="./assets/icons/arrow_left_hover.svg" alt="" srcset=""></button>
+    </a>
     <div class="request_header d_flex_ai_center width_100 justify_between">
       <a href="index.html">
         <button id="request-btn-back" class="request_btn_back margin_0"><img src="./assets/icons/arrow_left_line.svg"
@@ -67,8 +78,6 @@
       </a>
       <p class="limit_text margin_0"><span id="todays-requests">10</span> of <span>10</span> requests used today</p>
     </div>
-
-    <h1>Welcome</h1>
     <div class="d_flex_center_row gap_48">
       <div class="request_left d_flex_center_column gap_40">
         <div class="red_container d_flex_center">
@@ -93,21 +102,13 @@
     </div>
   </div>
 
-  <div class="login_bottom fade_out">
+  <div class="login_bottom">
     <a href="./templates/privacyPolicy.html">Privacy Policy</a>
     <a href="./templates/legalNotice.html">Legal Notice</a>
-  </div>
-  </div>
-  <div id="dialog_signin" class="dialog_signin d_flex_center d_none">
-    <div class="hide_dialog_signin" id="dialog_signin_inner">
-      <img src="./assets/icons/dialog_signup.svg" alt="">
-    </div>
-  </div>
   </div>
 </body>
 <script src="./scripts/api.js"></script>
 <script src="./script.js"></script>
 <script src="./scripts/request.js"></script>
-
 
 </html>

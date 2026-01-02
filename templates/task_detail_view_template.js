@@ -196,7 +196,7 @@ function renderCreator(data, isCreator) {
   <div class="d_flex_row gap_8 justify_between">
     <div class="d_flex_row gap_8 width_80 width_30vw">
       <img class="int_ext" src="./assets/icons/member.svg" alt="member-svg">
-      <p>${data.creator}</p>
+      <p class="creator_name">${data.creator}</p>
     </div>
     <div class="profil_icon">
     </div>
@@ -206,9 +206,9 @@ function renderCreator(data, isCreator) {
   <div class="d_flex_row gap_8 justify_between">
     <div class="d_flex_row gap_8 width_80 width_30vw">
       <img class="int_ext" src="./assets/icons/extern.svg" alt="extern-svg">
-      <p>${data.creator}</p>
+      <p class="creator_name">${data.creator}</p>
     </div>
-   <a href="mailto:${data.Mail}"><div class="email_icon"> </div></a>
+   <a href="mailto:${data.mail}"><div class="email_icon"> </div></a>
   </div>`
   }
 

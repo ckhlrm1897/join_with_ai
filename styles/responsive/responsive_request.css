@@ -11,6 +11,14 @@
         padding: unset;
         height: unset;
         top: 50%;
+        gap: 8px;
+    }
+
+     .request_limit_container {
+        padding: unset;
+        height: unset;
+        top: 50%;
+        gap: 8px;
     }
 
     .request_logo {
@@ -19,9 +27,44 @@
 
     .request_header {
         position: relative;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        height: 16px;
+    }
+
+    .request_header p {
+        position: absolute;
+        left: 0;
     }
 
     h1 {
         margin-left: 0;
+    }
+
+    .request_left {
+        gap: 8px;
+    }
+
+    .request_btn_standard {
+        margin-top: 8px !important;
+    }
+
+    .request_footline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .request_btn_back {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+@media (max-height: 780px) {
+    .request_logo {
+        display: none;
     }
 }
