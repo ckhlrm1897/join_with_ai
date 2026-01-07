@@ -8,8 +8,8 @@
       "type": "n8n-nodes-base.emailReadImap",
       "typeVersion": 2.1,
       "position": [
-        -576,
-        -416
+        -608,
+        -208
       ],
       "id": "3e49a23b-5327-48c7-b478-058c12cf7cd0",
       "name": "Email Trigger (IMAP)",
@@ -22,33 +22,20 @@
     },
     {
       "parameters": {
-        "jsCode": "const raw = items[0].json.output[0].content[0].text;\n\nreturn [\n  {\n    json: JSON.parse(raw)\n  }\n];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        672,
-        -320
-      ],
-      "id": "2207b327-cb6a-433f-9560-d8af332bfb5d",
-      "name": "Code in JavaScript2"
-    },
-    {
-      "parameters": {
         "modelId": {
           "__rl": true,
-          "value": "gpt-5",
+          "value": "gpt-4.1-mini",
           "mode": "list",
-          "cachedResultName": "GPT-5"
+          "cachedResultName": "GPT-4.1-MINI"
         },
         "responses": {
           "values": [
             {
               "role": "system",
-              "content": "You are an API-style assistant used in an n8n automation.\n\nYour task is to convert unstructured email content into a structured JSON object for task creation.\n\nRules:\n- Always return ONLY valid JSON\n- Do NOT include explanations, comments, markdown or surrounding text\n- Do NOT change the JSON structure\n- Normalize umlauts and broken character encodings (e.g. mÃ¼ → ü)\n- Convert dates to ISO format (YYYY-MM-DD)\n- Use deterministic values only, no randomness\n\nField rules:\n- Use the email subject as title if available\n- If subject is missing or empty, generate a short meaningful title from the description\n- If category is missing, use \"Technical Task\"\n- If priority is missing, use \"medium\"\n- If dueDate is missing, leave it empty\n- If creator cannot be clearly determined, use \"Email User\"\n\nTarget JSON structure:\n\n{\n  \"aigenerated\": true,\n  \"assignedTo\": [],\n  \"category\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"dueDate\": \"\",\n  \"mail\": \"\",\n  \"priority\": \"\",\n  \"status\": \"triage\",\n  \"subtasks\": [],\n  \"title\": \"\",\n \"createdAt\": \"\"\n}"
+              "content": "You are an API-style assistant used in an n8n automation.\n\nYour task is to convert unstructured email content into a structured JSON object for task creation.\n\nRules:\n- Always return ONLY valid JSON\n- Do NOT include explanations, comments, markdown or surrounding text\n- Do NOT change the JSON structure\n- Normalize umlauts and broken character encodings (e.g. mÃ¼ → ü)\n- Convert dates to ISO format (YYYY-MM-DD)\n- Use deterministic values only, no randomness\n\nField rules:\n- Use the email subject as title if available\n- If subject is missing or empty, generate a short meaningful title from the description\n- If category is missing, use \"Technical Task\"\n- If priority is missing, use \"medium\"\n- If dueDate is missing or in the past, leave it empty\n- If creator cannot be clearly determined, use \"the mail adress\"\n- If no subtasks available leave it empty\n\n\"subtaks\" rule:\nfor every subtask create:\n\"status\" : \"open\"\n\"title\" : \"\"\n\nTarget JSON structure:\n\n{\n  \"aigenerated\": true,\n  \"assignedTo\": [],\n  \"category\": \"\",\n  \"creator\": \"\",\n  \"description\": \"\",\n  \"dueDate\": \"\",\n  \"mail\": \"\",\n  \"priority\": \"\",\n  \"status\": \"triage\",\n  \"subtasks\": [ {\n    \"status\": \"open\",\n    \"title\": \"subtask1\"  \n   }],\n  \"title\": \"\",\n \"createdAt\": \"\"\n}"
             },
             {
-              "content": "=Convert the following email content into the target JSON structure.\n\nEmail content:\n{{ $json.textPlain }}\n\nMetadata:\n- From: {{ $json.from }}\n- Subject: {{ $json.subject }}\n\nMapping rules:\n- Use \"Priority\" from the email body for priority only \"'low', 'normal', 'urgent'\" allowed!\n- Use \"Description\" from the email body as description\n- Use \"Due date\" from the email body as dueDate\n- Use \"Category\" from the email body as category only \"'Technical Task' , 'User Story'\" allowed\n- Use the email subject as title\n- Extract the sender email address from \"From\" and use it as mail\n- Use the sender name or email as creator\n- Convert dates from DD.MM.YYYY to YYYY-MM-DD"
+              "content": "=Convert the following email content into the target JSON structure.\n\nEmail content:\n{{ $('Email Trigger (IMAP)').item.json.textPlain }}\n\nMetadata:\n- From: {{ $('Email Trigger (IMAP)').item.json.from }}\n- Subject: {{ $('Email Trigger (IMAP)').item.json.subject }}\n\nMapping rules:\n- Use \"Priority\" from the email body for priority only \"'low', 'medium', 'urgent'\" allowed!\n- Use \"Description\" from the email body as description\n- Use \"Due date\" from the email body as dueDate\n- Use \"Category\" from the email body as category only \"'Technical Task' , 'User Story'\" allowed\n- Use the email subject as title\n- Extract the sender email address from \"From\" and use it as mail\n- Use the sender name as creator\n- Convert dates from DD.MM.YYYY to YYYY-MM-DD\n- Use \"subtasks\" from the email body."
             }
           ]
         },
@@ -58,8 +45,8 @@
       "type": "@n8n/n8n-nodes-langchain.openAi",
       "typeVersion": 2,
       "position": [
-        320,
-        -320
+        576,
+        -224
       ],
       "id": "d08eda33-ab50-42bc-b590-c634c157d700",
       "name": "Message a model",
@@ -132,24 +119,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1120,
-        -320
+        1312,
+        -224
       ],
       "id": "df131748-eeac-4506-92c4-48a9f6deb5ab",
       "name": "HTTP Request"
-    },
-    {
-      "parameters": {
-        "jsCode": "const date = new Date();\ndate.setHours(date.getHours());\n\nreturn [\n  {\n    json: {\n      ...$json,\n      createdAt: date.toISOString()\n    }\n  }\n];"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        896,
-        -320
-      ],
-      "id": "615f3b38-41ce-4d5e-b9d8-2f92d227bc82",
-      "name": "Code in JavaScript5"
     },
     {
       "parameters": {
@@ -240,8 +214,8 @@
     {
       "parameters": {
         "fromEmail": "info@join.christianklemm.com",
-        "toEmail": "={{ $('Email Trigger (IMAP)').item.json.metadata['return-path'] }}",
-        "subject": "=Thank you for your request ({{ $('Email Trigger (IMAP)').item.json.subject }})",
+        "toEmail": "={{ $('create json').item.json.mail }}",
+        "subject": "=Thank you for your request ({{ $('create json').item.json.title }})",
         "emailFormat": "text",
         "text": "Thank you for your request,\n\nyour task is now available on the Join Board.\n\nBest regards.\n\nChristian Klemm",
         "options": {}
@@ -249,8 +223,8 @@
       "type": "n8n-nodes-base.emailSend",
       "typeVersion": 2.1,
       "position": [
-        1344,
-        -320
+        1680,
+        -224
       ],
       "id": "6eeb2013-bbee-43bd-93b4-8b96623ba9f6",
       "name": "Mail AI",
@@ -261,6 +235,43 @@
           "name": "SMTP account"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        288,
+        -224
+      ],
+      "id": "7d179ca2-6412-41de-8255-8c89fd638a15",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = items[0].json.output[0].content[0].text;\n\nreturn [\n  {\n    json: JSON.parse(raw)\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        928,
+        -224
+      ],
+      "id": "2207b327-cb6a-433f-9560-d8af332bfb5d",
+      "name": "create json"
+    },
+    {
+      "parameters": {
+        "jsCode": "const date = new Date();\ndate.setHours(date.getHours());\n\nreturn [\n  {\n    json: {\n      ...$json,\n      createdAt: date.toISOString()\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -224
+      ],
+      "id": "615f3b38-41ce-4d5e-b9d8-2f92d227bc82",
+      "name": "include createdAt to Json"
     }
   ],
   "pinData": {},
@@ -272,17 +283,11 @@
             "node": "Task Request",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript2": {
-      "main": [
-        [
+          },
           {
-            "node": "Code in JavaScript5",
+            "node": "Merge",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -291,18 +296,7 @@
       "main": [
         [
           {
-            "node": "Code in JavaScript2",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript5": {
-      "main": [
-        [
-          {
-            "node": "HTTP Request",
+            "node": "create json",
             "type": "main",
             "index": 0
           }
@@ -342,7 +336,7 @@
         ],
         [
           {
-            "node": "Message a model",
+            "node": "Merge",
             "type": "main",
             "index": 0
           }
@@ -359,13 +353,46 @@
           }
         ]
       ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create json": {
+      "main": [
+        [
+          {
+            "node": "include createdAt to Json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "include createdAt to Json": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "0785d0c3-f1b5-4a31-b972-dec7e24484e9",
+  "versionId": "daecec29-1b99-43c6-8926-feaac2db174d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4caf60e1e62a21203677f5ee3ba0274c27c2b2ab0e0660322f916cce51e9047f"

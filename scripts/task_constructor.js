@@ -260,6 +260,7 @@ class TaskClass {
         const navItemsDiv = document.createElement('div');
         navItemsDiv.className = 'mobile_navbar_items';
         [
+            { text: "Triage", value: "triage" },
             { text: "To do", value: "todo" },
             { text: "In progress", value: "in progress" },
             { text: "Await feedback", value: "await feedback" },

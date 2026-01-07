@@ -72,6 +72,10 @@ async function loadTasks() {
             rawTasksData = [];
             rawTasksData = Object.entries(dataFromDatabase);
         }
+        else if (!dataFromDatabase) {
+            rawTasksData = [];
+            dataPool = [];
+        }
         if (rawTasksData) {
             rawTasksData.forEach((singleTask) => {
                 let [key, data] = [...singleTask];
@@ -144,7 +148,7 @@ function checkColumnContent() {
 /**
  * Refreshes the board by clearing and re-rendering all task cards.
  */
-function refreshBoard() {
+async function refreshBoard() {
     Object.keys(cardPools).forEach((key) => {
         const ref = columnRefs[key];
         let refTasks = ref.querySelectorAll('.task_card')
@@ -154,6 +158,7 @@ function refreshBoard() {
             })
         }
     });
+    await loadTasks();
     clearCardPools();
     renderAllTasks();
     checkColumnContent();
@@ -162,7 +167,7 @@ function refreshBoard() {
 /**
  * Clears all task card pools.
  */
-function clearCardPools(){
+function clearCardPools() {
     cardPools.dataToDo = [];
     cardPools.dataInProgress = [];
     cardPools.dataAwaitFeedback = [];
@@ -223,11 +228,11 @@ function searchTaskDescription(taskName, searchInput, card, taskDescription) {
  * Adds event listeners for dragover, dragleave, and drop events.
  */
 function dragFunction() {
-  dragRef.forEach(element => {
-    addDragOverListener(element);
-    addDragLeaveListener(element);
-    addDropListener(element);
-  });
+    dragRef.forEach(element => {
+        addDragOverListener(element);
+        addDragLeaveListener(element);
+        addDropListener(element);
+    });
 }
 
 /**
@@ -235,10 +240,10 @@ function dragFunction() {
  * @param {HTMLElement} element - The element to add the listener to.
  */
 function addDragOverListener(element) {
-  element.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    element.classList.add('hover_dragzone');
-  });
+    element.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        element.classList.add('hover_dragzone');
+    });
 }
 
 /**
@@ -246,10 +251,10 @@ function addDragOverListener(element) {
  * @param {HTMLElement} element - The element to add the listener to.
  */
 function addDragLeaveListener(element) {
-  element.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    element.classList.remove('hover_dragzone');
-  });
+    element.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        element.classList.remove('hover_dragzone');
+    });
 }
 
 /**
@@ -257,17 +262,17 @@ function addDragLeaveListener(element) {
  * @param {HTMLElement} element - The element to add the listener to.
  */
 function addDropListener(element) {
-  element.addEventListener('drop', async (e) => {
-    e.preventDefault();
-    element.classList.remove('hover_dragzone');
-    const cardTaskName = e.dataTransfer.getData('text/plain');
-    const card = document.querySelector(`.task_card[taskName="${cardTaskName}"]`);
-    element.appendChild(card);
-    const [cardIdentifyer] = dataPool.filter(item => item.taskName === cardTaskName);
-    cardIdentifyer.taskStatus = element.getAttribute("name");
-    await updateOnCardsStatus(cardIdentifyer);
-    refreshBoard();
-  });
+    element.addEventListener('drop', async (e) => {
+        e.preventDefault();
+        element.classList.remove('hover_dragzone');
+        const cardTaskName = e.dataTransfer.getData('text/plain');
+        const card = document.querySelector(`.task_card[taskName="${cardTaskName}"]`);
+        element.appendChild(card);
+        const [cardIdentifyer] = dataPool.filter(item => item.taskName === cardTaskName);
+        cardIdentifyer.taskStatus = element.getAttribute("name");
+        await updateOnCardsStatus(cardIdentifyer);
+        refreshBoard();
+    });
 }
 
 /**
@@ -380,20 +385,28 @@ function handleTaskCardClick(cardElement) {
     dataPool.forEach((task) => {
         if (task.taskName === taskname) {
             data = task;
-            if (data.taskSubTasks === undefined) {
-                subTasks = [];
-                data.taskSubTasks = subTasks;
-            }
+            checktaskSubtasksAndAssignedTo(data);
             renderTaskDetailView(data);
         }
     });
+}
+
+function checktaskSubtasksAndAssignedTo(data) {
+    if (data.taskSubTasks === undefined) {
+        subTasks = [];
+        data.taskSubTasks = subTasks;
+    }
+    if (data.taskAssignedTo === undefined) {
+        assignedTo = [];
+        data.taskAssignedTo = assignedTo;
+    }
 }
 
 /**
  * Renders the detailed view of a task in the overlay.
  * @param {Object} data - Task data object.
  */
-async function renderTaskDetailView(data) {    
+async function renderTaskDetailView(data) {
     const isCreator = await isCreatorUser(data.taskData)
     const taskDetail = document.getElementById('task-details');
     taskDetail.innerHTML = "";

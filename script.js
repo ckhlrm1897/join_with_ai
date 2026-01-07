@@ -256,6 +256,7 @@ function SendLinkByMail() {
   body += "Description:\n\r";
   body += "Due date:\n\r";
   body += "Category: 'Technical Task' , 'User Story'\n\r";
+  body += "Subtasks: "
   var uri = "mailto:info@join.christianklemm.com?subject=";
   uri += encodeURIComponent(subject);
   uri += "&body=";

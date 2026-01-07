@@ -91,10 +91,12 @@ async function handleMoveOptionClick(card, option, mobileNavbar) {
  */
 function getStatusValue(text) {
     const statusMap = {
+        "Triage": "triage",
         "To do": "todo",
         "In progress": "in progress",
         "Await feedback": "await feedback",
         "Done": "done"
+        
     };
     return statusMap[text];
 }
